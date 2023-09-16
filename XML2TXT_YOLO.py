@@ -27,10 +27,12 @@ def convert_annotation(xml_file, txt_file, class_names):
             y_max = int(bndbox.find("ymax").text)
 
             # Convert to YOLO format: x_center, y_center, width, height
-            width = (x_max - x_min) * dw
-            height = (y_max - y_min) * dh
-            x_center = (x_min + width) * dw / 2
-            y_center = (y_min + height) * dh / 2
+            _width = x_max - x_min
+            _height = y_max - y_min
+            width = _width * dw
+            height = _height * dh
+            x_center = (x_min + _width) * dw / 2
+            y_center = (y_min + _height) * dh / 2
             out_file.write(f"{class_id} {x_center} {y_center} {width} {height}\n")
 
 
